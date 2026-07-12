@@ -1,0 +1,36 @@
+
+class BSTIterator {
+public:
+    stack<TreeNode*> st;
+    void pushleft(TreeNode *&root)
+    {
+        while(root) 
+        {
+            st.push(root);
+            root=root->left;
+        }
+    }
+    BSTIterator(TreeNode* root) {
+        pushleft(root);
+    }
+    
+    int next() {
+        TreeNode *temp = st.top();st.pop();
+        if(temp->right)
+        {
+            pushleft(temp->right);
+        }
+        return temp->val;
+    }
+    
+    bool hasNext() {
+        return !st.empty();
+    }
+};
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator* obj = new BSTIterator(root);
+ * int param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */
